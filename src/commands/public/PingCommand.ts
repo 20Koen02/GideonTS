@@ -1,5 +1,6 @@
 import { Command } from 'discord-akairo';
-import { Message } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
+import { primaryColor } from '../../Config';
 
 export default class PingCommand extends Command {
   public constructor() {
@@ -7,7 +8,7 @@ export default class PingCommand extends Command {
       aliases: ['ping'],
       category: 'Public Commands',
       description: {
-        content: 'Check the latency of the ping to the Discord API',
+        content: 'Bereken de round-trip tijd & API latency',
         usage: 'ping',
         examples: [
           'ping',
@@ -17,7 +18,10 @@ export default class PingCommand extends Command {
     });
   }
 
-  public exec(message: Message): Promise<Message> {
-    return message.util.send(`Pong! \`${this.client.ws.ping}ms\``);
+  public async exec(message: Message): Promise<Message> {
+    const m = await message.util.send('Ping?');
+    return m.edit('', new MessageEmbed()
+      .setColor(primaryColor)
+      .setDescription(`:repeat: Round-trip tijd is **${m.createdTimestamp - message.createdTimestamp} ms**\n\n:clock1: API latency is **${this.client.ws.ping} ms**`));
   }
 }
