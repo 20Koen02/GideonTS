@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { token, owners } from './Config';
 import BotClient from './client/BotClient';
 
