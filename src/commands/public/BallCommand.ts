@@ -51,7 +51,6 @@ export default class BallCommand extends Command {
     return fortunes[Math.floor(Math.random() * fortunes.length)];
   }
 
-  // eslint-disable-next-line class-methods-use-this
   public exec(message: Message): Promise<Message> {
     return message.util.send(new MessageEmbed()
       .setColor(primaryColor)

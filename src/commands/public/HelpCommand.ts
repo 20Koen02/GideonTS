@@ -60,6 +60,6 @@ export default class HelpCommand extends Command {
       }
     }
 
-    return message.channel.send(embed);
+    return message.util.send(embed);
   }
 }

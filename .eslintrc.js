@@ -12,6 +12,8 @@ module.exports = {
   },
   rules: {
     "no-console": "off",
-    "no-restricted-syntax": "off"
+    "no-restricted-syntax": "off",
+    "class-methods-use-this": "off",
+    "no-underscore-dangle": ["error", { "allowAfterThis": true }]
   }
 };
