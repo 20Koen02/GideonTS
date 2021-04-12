@@ -19,7 +19,7 @@
     "discord-akairo": "^8.1.0",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
-    "mathjs": "^9.2.0",
+    "mathjs": "^9.3.1",
     "strftime": "^0.10.0",
     "urban": "^0.3.2"
   },

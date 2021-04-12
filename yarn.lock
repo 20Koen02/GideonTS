@@ -1128,10 +1128,10 @@ make-error@^1.1.1:
   resolved "https://registry.yarnpkg.com/make-error/-/make-error-1.3.6.tgz#2eb2e37ea9b67c4891f684a1394799af484cf7a2"
   integrity sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==
 
-mathjs@^9.2.0:
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/mathjs/-/mathjs-9.2.0.tgz#247f204c6d0151ee01d1a2696b90d30e25f82a7e"
-  integrity sha512-R2fQxaOmyifxgP4+c59dnfLwpKI1KYHdnT5lLwDuHIZvgyGb71M8ay6kTJTEv9rG04pduqvX4tbBUoG5ypTF8A==
+mathjs@^9.3.1:
+  version "9.3.1"
+  resolved "https://registry.yarnpkg.com/mathjs/-/mathjs-9.3.1.tgz#118c64974c961824f193456bd26bce6e2ee2519a"
+  integrity sha512-XZCNK+/8tK9Ow+rmPvhDF4OGHWducfSSkB404yjKjpVGDwc6By+E2/kkK6mGMJ/nVOKYg28Zrw0aDAbsw2d0hQ==
   dependencies:
     complex.js "^2.0.11"
     decimal.js "^10.2.1"
