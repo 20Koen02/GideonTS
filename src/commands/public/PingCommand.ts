@@ -19,9 +19,12 @@ export default class PingCommand extends Command {
   }
 
   public async exec(message: Message): Promise<Message> {
-    const m = await message.util.send('Ping?');
-    return m.edit('', new MessageEmbed()
-      .setColor(primaryColor)
-      .setDescription(`:repeat: Round-trip tijd is **${m.createdTimestamp - message.createdTimestamp} ms**\n\n:clock1: API latency is **${this.client.ws.ping} ms**`));
+    const sent = await message.util.send('Ping?');
+    const timeDiff = Number(sent.editedAt || sent.createdAt)
+      - Number(message.editedAt || message.createdAt);
+    return sent.edit('', new MessageEmbed()
+      .setTitle('Pong!')
+      .setDescription(`🔂 **Round-trip time**: ${timeDiff} ms\n💟 **Heartbeat**: ${Math.round(this.client.ws.ping)} ms`)
+      .setColor(primaryColor));
   }
 }

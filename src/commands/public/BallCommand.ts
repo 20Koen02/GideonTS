@@ -26,7 +26,7 @@ export default class BallCommand extends Command {
   }
 
   private static do8ball() {
-    const fortunes = [
+    const fortunes: string[] = [
       ':8ball: **⇾** :white_check_mark: **Het is zeker**',
       ':8ball: **⇾** :white_check_mark: **Het is zo beslist**',
       ':8ball: **⇾** :white_check_mark: **Zonder twijfel**',
