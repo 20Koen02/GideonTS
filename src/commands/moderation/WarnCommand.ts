@@ -8,6 +8,7 @@ export default class WarnCommand extends Command {
   public constructor() {
     super('warn', {
       aliases: ['warn'],
+      channel: 'guild',
       category: 'Moderation Commands',
       description: {
         content: 'Waarschuw een gebruiker uit de server',
@@ -39,7 +40,7 @@ export default class WarnCommand extends Command {
   }
 
   public async exec(message: Message,
-    { member, reason }: {member: GuildMember, reason: string}): Promise<Message> {
+    { member, reason }: { member: GuildMember, reason: string }): Promise<Message> {
     const warnRepo: Repository<WarnsModel> = this.client.db.getRepository(WarnsModel);
     if (member.roles.highest.position >= message.member.roles.highest.position
       && message.author.id !== message.guild.ownerID) {

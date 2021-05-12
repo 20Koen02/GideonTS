@@ -9,6 +9,7 @@ export default class InfoCommand extends Command {
   public constructor() {
     super('info', {
       aliases: ['info'],
+      channel: 'guild',
       category: 'Public Commands',
       description: {
         content: 'Informatie over jou en de server',

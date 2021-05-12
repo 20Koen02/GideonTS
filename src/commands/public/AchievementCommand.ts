@@ -5,7 +5,8 @@ import axios from 'axios';
 export default class AchievementCommand extends Command {
   public constructor() {
     super('achievement', {
-      aliases: ['ach', 'advancement', 'adv'],
+      aliases: ['achievement', 'ach', 'advancement', 'adv'],
+      channel: 'guild',
       category: 'Public Commands',
       description: {
         content: 'Genereer een minecraft achievement',

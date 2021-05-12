@@ -22,6 +22,7 @@ export default class UrbanCommand extends Command {
   public constructor() {
     super('urban', {
       aliases: ['urban'],
+      channel: 'guild',
       category: 'Public Commands',
       description: {
         content: 'Urban Dictionary top result',

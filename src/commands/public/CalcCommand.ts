@@ -18,6 +18,7 @@ export default class CalcCommand extends Command {
   public constructor() {
     super('calc', {
       aliases: ['calc'],
+      channel: 'guild',
       category: 'Public Commands',
       description: {
         content: 'evalueer een uitdrukking',
@@ -43,7 +44,7 @@ export default class CalcCommand extends Command {
     });
   }
 
-  public async exec(message: Message, { expr }: {expr: string}): Promise<Message> {
+  public async exec(message: Message, { expr }: { expr: string }): Promise<Message> {
     try {
       if (limitedEvaluate(expr).toString().length > 2048) {
         throw new Error();
@@ -51,7 +52,7 @@ export default class CalcCommand extends Command {
       const embed = new MessageEmbed()
         .setColor(primaryColor)
         .setDescription(`\`${expr} = ${limitedEvaluate(expr)}\``);
-      return message.util.send(embed);
+      return await message.util.send(embed);
     } catch (e) {
       const embed = new MessageEmbed()
         .setColor(primaryColor)

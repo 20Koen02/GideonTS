@@ -10,6 +10,7 @@ export default class RankCommand extends Command {
   public constructor() {
     super('rank', {
       aliases: ['rank', 'level', 'lvl', 'exp', 'xp'],
+      channel: 'guild',
       category: 'Public Commands',
       description: {
         content: 'Bekijk de rank van een gebruiker in de server',
@@ -30,7 +31,7 @@ export default class RankCommand extends Command {
     });
   }
 
-  public async exec(message: Message, { member }: {member: GuildMember}): Promise<Message> {
+  public async exec(message: Message, { member }: { member: GuildMember }): Promise<Message> {
     const scoresRepo: Repository<ScoresModel> = this.client.db.getRepository(ScoresModel);
     const score: ScoresModel = await scoresRepo.findOne(({
       user: member.id, guild: message.guild.id,

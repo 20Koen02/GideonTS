@@ -6,6 +6,7 @@ export default class PingCommand extends Command {
   public constructor() {
     super('ping', {
       aliases: ['ping'],
+      channel: 'guild',
       category: 'Public Commands',
       description: {
         content: 'Bereken de round-trip tijd & API latency',

@@ -10,6 +10,7 @@ export default class InfractionsCommand extends Command {
   public constructor() {
     super('infractions', {
       aliases: ['infractions', 'infr'],
+      channel: 'guild',
       category: 'Moderation Commands',
       description: {
         content: 'Bekijk de overtredingen van een gebruiker in de server',
@@ -33,7 +34,7 @@ export default class InfractionsCommand extends Command {
     });
   }
 
-  public async exec(message: Message, { member }: {member: GuildMember}): Promise<Message> {
+  public async exec(message: Message, { member }: { member: GuildMember }): Promise<Message> {
     const warnRepo: Repository<WarnsModel> = this.client.db.getRepository(WarnsModel);
     const warns: WarnsModel[] = await warnRepo.find(({ user: member.id, guild: message.guild.id }));
 

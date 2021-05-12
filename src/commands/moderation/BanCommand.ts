@@ -6,6 +6,7 @@ export default class BanCommand extends Command {
   public constructor() {
     super('ban', {
       aliases: ['ban'],
+      channel: 'guild',
       category: 'Moderation Commands',
 
       description: {

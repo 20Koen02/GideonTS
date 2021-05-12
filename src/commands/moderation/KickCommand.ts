@@ -6,6 +6,7 @@ export default class KickCommand extends Command {
   public constructor() {
     super('kick', {
       aliases: ['kick'],
+      channel: 'guild',
       category: 'Moderation Commands',
 
       description: {

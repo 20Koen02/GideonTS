@@ -7,10 +7,12 @@
   "author": "20Koen02 <mail@koen02.nl>",
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "ts-node src/Bot.ts",
     "build": "tsc",
     "start": "node dist/Bot.js",
-    "watch": "nodemon src/Bot.ts"
+    "start:dev": "ts-node src/Bot.ts",
+    "start:watch": "nodemon src/Bot.ts",
+    "migrate": "node dist/migration/Migration.js",
+    "migrate:dev": "ts-node src/migration/Migration.ts"
   },
   "dependencies": {
     "@types/node": "^15.0.2",
@@ -23,7 +25,8 @@
     "pg": "^8.6.0",
     "strftime": "^0.10.0",
     "typeorm": "^0.2.32",
-    "urban": "^0.3.2"
+    "urban": "^0.3.2",
+    "canvas": "^2.7.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "4.22.1",

@@ -6,6 +6,7 @@ export default class BallCommand extends Command {
   public constructor() {
     super('8ball', {
       aliases: ['8ball'],
+      channel: 'guild',
       category: 'Public Commands',
       description: {
         content: 'Ik zal al je vragen eerlijk beantwoorden',

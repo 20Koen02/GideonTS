@@ -7,6 +7,7 @@ export default class HelpCommand extends Command {
   public constructor() {
     super('help', {
       aliases: ['help', 'commands', 'cmds'],
+      channel: 'guild',
       category: 'Public Commands',
       description: {
         content: 'Bekijk alle commando\'s of krijg hulp bij een enkele commando',
@@ -27,7 +28,7 @@ export default class HelpCommand extends Command {
     });
   }
 
-  public exec(message: Message, { command }: {command: Command}): Promise<Message> {
+  public exec(message: Message, { command }: { command: Command }): Promise<Message> {
     let embed: MessageEmbed;
 
     if (command) {
