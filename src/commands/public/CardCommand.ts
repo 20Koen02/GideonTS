@@ -40,7 +40,6 @@ export default class CardCommand extends Command {
 
   // eslint-disable-next-line consistent-return
   public async exec(message: Message, { color }: { color: string }): Promise<Message> {
-    message.channel.startTyping();
     const cardRepo: Repository<CardsModel> = this.client.db.getRepository(CardsModel);
 
     let isWhite = false;
@@ -72,12 +71,11 @@ export default class CardCommand extends Command {
     const textMargin = 30;
     ctx.font = '24px Inter Bold';
 
-    const cardText = randCard.text.replaceAll('_', '_____');
+    const cardText = randCard.text.replace(/_/g, '_____');
     this.wrapText(ctx, cardText, textMargin, textMargin + 22,
       canvas.width - (textMargin * 2), 34);
 
     const attachment = new MessageAttachment(canvas.toBuffer(), `card-${randCard.id}.png`);
-    message.channel.stopTyping();
     return message.util.send(attachment);
   }
 

@@ -7,7 +7,8 @@
   "author": "20Koen02 <mail@koen02.nl>",
   "license": "GPL-3.0",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && npm run copy-assets",
+    "copy-assets": "copyfiles -u 2 src/assets/**/*.* dist/assets",
     "start": "node dist/Bot.js",
     "start:dev": "ts-node src/Bot.ts",
     "start:watch": "nodemon src/Bot.ts",

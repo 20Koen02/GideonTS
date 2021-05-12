@@ -4,6 +4,7 @@ import { join } from 'path';
 import { Connection } from 'typeorm';
 import { prefix, owners, dbName } from '../Config';
 import Database from '../structures/Database';
+import migrate from '../migration/Migration';
 
 declare module 'discord-akairo' {
   interface AkairoClient {
@@ -73,6 +74,8 @@ export default class BotClient extends AkairoClient {
     this.db = Database.get(dbName);
     await this.db.connect();
     await this.db.synchronize();
+
+    await migrate(this.db);
   }
 
   public async start(): Promise<string> {

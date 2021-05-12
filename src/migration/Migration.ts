@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import * as fs from 'fs';
+import { Connection } from 'typeorm';
 import Database from '../structures/Database';
 import { dbName } from '../Config';
 import CardsModel from '../models/CardsModel';
@@ -19,11 +20,7 @@ interface CardsModelObject {
   white: boolean;
 }
 
-(async () => {
-  const db = Database.get(dbName);
-  await db.connect();
-  await db.synchronize();
-
+export default async function migrate(db: Connection) {
   console.log('Clearing cards table');
   const cardsRepo = await db.getRepository(CardsModel);
   await cardsRepo.clear();
@@ -62,4 +59,4 @@ interface CardsModelObject {
       .execute();
     console.log('Done.');
   });
-})().catch((err) => console.log(err.stack));
+}

@@ -8,6 +8,11 @@ services:
     env_file: .env
 
   gideonts:
+    image: koen02/gideonts:latest
     build: .
     restart: unless-stopped
     env_file: .env
+    volumes:
+      - .env:/app.env
+    depends_on:
+      - db
