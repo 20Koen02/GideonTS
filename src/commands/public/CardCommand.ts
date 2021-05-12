@@ -40,6 +40,7 @@ export default class CardCommand extends Command {
 
   // eslint-disable-next-line consistent-return
   public async exec(message: Message, { color }: { color: string }): Promise<Message> {
+    message.channel.startTyping();
     const cardRepo: Repository<CardsModel> = this.client.db.getRepository(CardsModel);
 
     let isWhite = false;
@@ -76,7 +77,8 @@ export default class CardCommand extends Command {
       canvas.width - (textMargin * 2), 34);
 
     const attachment = new MessageAttachment(canvas.toBuffer(), `card-${randCard.id}.png`);
-    return message.util.send(null, attachment);
+    message.channel.stopTyping();
+    return message.util.send(attachment);
   }
 
   roundRect(x0, y0, x1, y1, r, color, ctx) {
