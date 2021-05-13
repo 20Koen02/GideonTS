@@ -6,7 +6,6 @@ Gideon 1.0 Reimagined - Now in Typescript
 ## Todo:
 Moderation:
 - Mute
-- Purge
 
 Public:
 - Dobbelen
