@@ -8,11 +8,9 @@ Moderation:
 - Mute
 
 Public:
-- Dobbelen
 - Emoji
 - Kop of Munt
 - Rad van Fortuin
-- Weer
 
 Other: 
 - Music
