@@ -11,9 +11,7 @@
     "copy-assets": "copyfiles -u 2 src/assets/**/*.* dist/assets",
     "start": "node dist/Bot.js",
     "start:dev": "ts-node src/Bot.ts",
-    "start:watch": "nodemon src/Bot.ts",
-    "migrate": "node dist/migration/Migration.js",
-    "migrate:dev": "ts-node src/migration/Migration.ts"
+    "start:watch": "nodemon src/Bot.ts"
   },
   "dependencies": {
     "@types/node": "^15.0.2",

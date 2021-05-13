@@ -2,7 +2,9 @@ import { AkairoClient, CommandHandler, ListenerHandler } from 'discord-akairo';
 import { Message } from 'discord.js';
 import { join } from 'path';
 import { Connection } from 'typeorm';
-import { prefix, owners, dbName } from '../Config';
+import {
+  prefix, owners, dbName, debug,
+} from '../Config';
 import Database from '../structures/Database';
 import migrate from '../migration/Migration';
 
@@ -74,8 +76,7 @@ export default class BotClient extends AkairoClient {
     this.db = Database.get(dbName);
     await this.db.connect();
     await this.db.synchronize();
-
-    await migrate(this.db);
+    if (!debug) await migrate(this.db);
   }
 
   public async start(): Promise<string> {

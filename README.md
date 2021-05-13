@@ -9,12 +9,10 @@ Moderation:
 - Purge
 
 Public:
-- Cards
 - Dobbelen
 - Emoji
 - Kop of Munt
 - Rad van Fortuin
-- Regen
 - Weer
 
 Other: 
