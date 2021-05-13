@@ -11,7 +11,7 @@ export default class PingCommand extends Command {
       channel: 'guild',
       category: 'Public Commands',
       description: {
-        content: 'Bereken de round-trip tijd & API latency',
+        content: 'Buienradar',
         usage: 'regen',
         examples: [
           'regen',

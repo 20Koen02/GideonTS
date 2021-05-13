@@ -10,7 +10,7 @@ export default class BallCommand extends Command {
       category: 'Public Commands',
       description: {
         content: 'Ik zal al je vragen eerlijk beantwoorden',
-        usage: '8ball [vraag]',
+        usage: '8ball <vraag>',
         examples: [
           '8ball Is dit een goede bot?',
         ],

@@ -26,7 +26,7 @@ export default class UrbanCommand extends Command {
       category: 'Public Commands',
       description: {
         content: 'Urban Dictionary top result',
-        usage: 'urban',
+        usage: 'urban [query]',
         examples: [
           'urban boomer',
         ],

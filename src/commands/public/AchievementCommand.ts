@@ -10,7 +10,7 @@ export default class AchievementCommand extends Command {
       category: 'Public Commands',
       description: {
         content: 'Genereer een minecraft achievement',
-        usage: 'achievement [top] [bottom]',
+        usage: 'achievement [top] <bottom>',
         examples: [
           'achievement Top Bottom',
           'achievement "Advancement Made!" "Stone Age"',

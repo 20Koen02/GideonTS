@@ -21,8 +21,8 @@ export default class CalcCommand extends Command {
       channel: 'guild',
       category: 'Public Commands',
       description: {
-        content: 'evalueer een uitdrukking',
-        usage: 'calc',
+        content: 'evalueer een expressie',
+        usage: 'calc [expressie]',
         examples: [
           'calc 1 + 1 * pi',
           'calc sin(45 deg) ^ 2',
@@ -36,7 +36,7 @@ export default class CalcCommand extends Command {
           id: 'expr',
           type: 'string',
           prompt: {
-            start: (msg: Message) => `${msg.author}, je moet een uitdrukking opgeven`,
+            start: (msg: Message) => `${msg.author}, je moet een expressie opgeven`,
           },
           match: 'rest',
         },

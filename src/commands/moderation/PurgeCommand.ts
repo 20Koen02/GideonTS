@@ -12,9 +12,9 @@ export default class PurgeCommand extends Command {
       category: 'Moderation Commands',
       description: {
         content: 'Purge berichten van een channel',
-        usage: 'purge',
+        usage: 'purge [aantal]',
         examples: [
-          'purge',
+          'purge 3',
         ],
       },
       ratelimit: 3,

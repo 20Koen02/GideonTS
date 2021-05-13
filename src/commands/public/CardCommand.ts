@@ -14,7 +14,7 @@ export default class CardCommand extends Command {
       category: 'Public Commands',
       description: {
         content: 'Random Cards Against Humanity card',
-        usage: 'card',
+        usage: 'card [color]',
         examples: [
           'card w',
           'card b',

@@ -11,7 +11,7 @@ export default class HelpCommand extends Command {
       category: 'Public Commands',
       description: {
         content: 'Bekijk alle commando\'s of krijg hulp bij een enkele commando',
-        usage: 'help [command]',
+        usage: 'help <command>',
         examples: [
           'help',
           'help ping',
