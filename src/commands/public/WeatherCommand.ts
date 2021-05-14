@@ -1,8 +1,6 @@
 import { Command } from 'discord-akairo';
-import { Message, MessageAttachment, MessageEmbed } from 'discord.js';
-import axios, { AxiosResponse } from 'axios';
-import { randomBytes } from 'crypto';
-import { primaryColor } from '../../Config';
+import { Message, MessageAttachment } from 'discord.js';
+import axios from 'axios';
 
 export default class PingCommand extends Command {
   public constructor() {
@@ -31,10 +29,16 @@ export default class PingCommand extends Command {
     });
   }
 
-  public async exec(message: Message, { location }: { location: string }): Promise<Message> {
+  public async exec(message: Message, { location }: { location: string }): Promise<void> {
     const url = `https://wttr.in/${encodeURI(location)}_0tp_lang=nl.png?m`;
 
-    const req = await axios.get(url, { responseType: 'arraybuffer' });
-    return message.util.send(new MessageAttachment(Buffer.from(req.data, 'binary')));
+    axios.get(url, { responseType: 'arraybuffer' })
+      .then((res) => {
+        message.util.send(new MessageAttachment(Buffer.from(res.data, 'binary')));
+      })
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      .catch((err) => {
+        message.util.send(`Ik kan geen weersvoorspelling krijgen voor *${location}*`);
+      });
   }
 }
