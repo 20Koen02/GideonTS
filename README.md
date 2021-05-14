@@ -8,7 +8,6 @@ Moderation:
 - Mute
 
 Public:
-- Emoji
 - Kop of Munt
 - Rad van Fortuin
 
