@@ -6,13 +6,10 @@ export default class SocketClient {
 
   public server: http.Server;
 
-  constructor(server: http.Server) {
+  constructor(server: http.Server, corsOptions) {
     this.server = server;
     this.io = new SocketIO.Server(this.server, {
-      cors: {
-        origin: 'http://127.0.0.1:3333',
-        methods: ['GET', 'POST'],
-      },
+      cors: corsOptions,
     });
     this.connectionListeners();
   }
