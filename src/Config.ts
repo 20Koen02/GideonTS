@@ -20,4 +20,5 @@ export const dbPort: number = +process.env.POSTGRES_PORT;
 export const clientPort: number = 7777;
 export const corsOptions = {
   origin: ['http://127.0.0.1:3333', 'https://gideon.koen02.nl'],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 };

@@ -41,21 +41,34 @@ export default class RestClient {
         where: { guild: req.params.guild },
       }));
 
-      scores = await Promise.all(scores.map(async (score) => {
-        const discordUser = await botClient.users.fetch(score.user);
-        const discordGuildMember = await (await botClient.guilds.fetch(req.params.guild))
-          .members.fetch(discordUser.id);
-        return {
-          ...score,
-          username: discordUser.username,
-          avatar: discordUser.displayAvatarURL({ format: imageFormat as AllowedImageFormat }),
-          discriminator: discordUser.discriminator,
-          displayColor: discordGuildMember.displayHexColor,
-          status: discordUser.presence.status,
-        } as ScoresResponse;
-      }));
+      try {
+        const discordGuild = await botClient.guilds.fetch(req.params.guild);
 
-      res.send(JSON.stringify(scores));
+        scores = await Promise.all(scores.map(async (score) => {
+          const discordUser = await botClient.users.fetch(score.user);
+          const discordGuildMember = await discordGuild.members.fetch(discordUser.id);
+          return {
+            ...score,
+            username: discordUser.username,
+            avatar: discordUser.displayAvatarURL({ format: imageFormat as AllowedImageFormat }),
+            discriminator: discordUser.discriminator,
+            displayColor: discordGuildMember.displayHexColor,
+            status: discordUser.presence.status,
+          } as ScoresResponse;
+        }));
+
+        const responseObject = {
+          guildInfo: {
+            name: discordGuild.name,
+            icon: discordGuild.iconURL(),
+          },
+          scores,
+        };
+
+        res.send(JSON.stringify(responseObject));
+      } catch (error) {
+        return res.status(404).send('Guild not found');
+      }
     });
   }
 
