@@ -16,3 +16,9 @@ services:
       - .env:/app.env
     depends_on:
       - db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gideonts-api.rule=Host(`gideon-api.koen02.nl`)"
+      - "traefik.http.routers.gideonts-api.entrypoints=websecure"
+      - "traefik.http.routers.gideonts-api.tls.certresolver=mytlschallenge"
+      - "traefik.http.services.gideonts-api.loadbalancer.server.port=7777"

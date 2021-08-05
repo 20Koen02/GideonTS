@@ -17,3 +17,4 @@ export const dbUser: string = process.env.POSTGRES_USER;
 export const dbPassword: string = process.env.POSTGRES_PASSWORD;
 export const dbHost: string = process.env.POSTGRES_HOST;
 export const dbPort: number = +process.env.POSTGRES_PORT;
+export const clientPort: number = 7777;
