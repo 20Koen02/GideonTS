@@ -21,7 +21,7 @@ export default class PingCommand extends Command {
           id: 'location',
           type: 'string',
           prompt: {
-            start: (msg: Message) => `${msg.author}, je moet een plaats opgeven`,
+            start: (msg: Message) => `${msg.author.toString()}, je moet een plaats opgeven`,
           },
           match: 'rest',
         },
@@ -34,7 +34,7 @@ export default class PingCommand extends Command {
 
     axios.get(url, { responseType: 'arraybuffer' })
       .then((res) => {
-        message.util.send(new MessageAttachment(Buffer.from(res.data, 'binary')));
+        message.util.send({ files: [new MessageAttachment(Buffer.from(res.data, 'binary'))] });
       })
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .catch((err) => {

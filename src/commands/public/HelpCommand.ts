@@ -61,6 +61,6 @@ export default class HelpCommand extends Command {
       }
     }
 
-    return message.util.send(embed);
+    return message.util.send({ embeds: [embed] });
   }
 }

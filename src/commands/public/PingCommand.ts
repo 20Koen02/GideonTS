@@ -23,9 +23,11 @@ export default class PingCommand extends Command {
     const sent = await message.util.send('Ping?');
     const timeDiff = Number(sent.editedAt || sent.createdAt)
       - Number(message.editedAt || message.createdAt);
-    return sent.edit('', new MessageEmbed()
-      .setTitle('Pong!')
-      .setDescription(`🔂 **Round-trip time**: ${timeDiff} ms\n💟 **Heartbeat**: ${Math.round(this.client.ws.ping)} ms`)
-      .setColor(primaryColor));
+    return sent.edit({
+      embeds: [new MessageEmbed()
+        .setTitle('Pong!')
+        .setDescription(`🔂 **Round-trip time**: ${timeDiff} ms\n💟 **Heartbeat**: ${Math.round(this.client.ws.ping)} ms`)
+        .setColor(primaryColor)],
+    });
   }
 }

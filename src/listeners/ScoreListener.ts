@@ -46,7 +46,7 @@ class ScoreListener extends Listener {
     if (score.exp >= totalNeededExp) {
       score.level += 1;
       score.exp -= totalNeededExp;
-      message.util.reply(`je bent een level omhoog! Je level is nu **${score.level}**!`);
+      await message.util.sendNew(`je bent een level omhoog! Je level is nu **${score.level}**!`);
     }
 
     await scoresRepo.save(score);

@@ -24,7 +24,7 @@ export default class InfoCommand extends Command {
 
   public async exec(message: Message): Promise<Message> {
     const user = message.author;
-    const member = message.guild.member(user);
+    const member = await message.guild.members.fetch(user);
 
     const millisCreated = new Date().getTime() - user.createdAt.getTime();
     const daysCreated = millisCreated / 1000 / 60 / 60 / 24;
@@ -39,18 +39,17 @@ export default class InfoCommand extends Command {
       .setThumbnail('attachment://avatar.png')
       .addField('Over de Server', stripIndents`
         • **Naam: **${message.guild.name}
-        • **Tekstkanalen: **${message.guild.channels.cache.filter((ch) => ch.type === 'text').size}
-        • **Voicekanalen: **${message.guild.channels.cache.filter((ch) => ch.type === 'voice').size}
+        • **Tekstkanalen: **${message.guild.channels.cache.filter((ch) => ch.type === 'GUILD_TEXT').size}
+        • **Voicekanalen: **${message.guild.channels.cache.filter((ch) => ch.type === 'GUILD_VOICE').size}
         • **Gebruikers: **${message.guild.memberCount}
-        • **Owner: **${message.guild.owner.user.tag}
+        • **Owner: **${(await message.guild.fetchOwner()).user.tag}
         • **Roles: **${message.guild.roles.cache.sort((a, b) => a.position - b.position).map((role) => role.toString()).slice(1).reverse()
     .join(', ')}
-        • **Regio:** ${message.guild.region}
         • **Gemaakt Op:** ${strftime('%d-%m-%Y', message.guild.createdAt)}
       `)
       .addField('Over Jou', stripIndents`
       • **Volledige Naam:** ${user.tag}
-      • **Status:** ${user.presence.status[0].toUpperCase() + user.presence.status.slice(1)}
+      • **Status:** ${member.presence.status[0].toUpperCase() + member.presence.status.slice(1)}
       • **Gemaakt Op:** ${strftime('%d-%m-%Y', user.createdAt)}
       • **Dagen Sinds Gemaakt:** ${daysCreated.toFixed(0)}
       • **Server Gejoined Op:** ${strftime('%d-%m-%Y', member.joinedAt)}
@@ -58,6 +57,6 @@ export default class InfoCommand extends Command {
       • **Jouw Roles:** ${member.roles.cache.sort((a, b) => a.position - b.position).map((role) => role.toString()).slice(1).reverse()
     .join(', ')}
       `);
-    return message.util.send({ embed });
+    return message.util.send({ embeds: [embed] });
   }
 }

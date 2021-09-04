@@ -24,7 +24,7 @@ export default class PurgeCommand extends Command {
           id: 'amount',
           type: Argument.validate('integer', (msg, p, integer) => integer > 0 && integer <= 100),
           prompt: {
-            start: (msg: Message) => `${msg.author}, je moet het aantal berichten opgeven (tussen 1 en 100)`,
+            start: (msg: Message) => `${msg.author.toString()}, je moet het aantal berichten opgeven (tussen 1 en 100)`,
           },
         },
         {
@@ -32,7 +32,7 @@ export default class PurgeCommand extends Command {
           type: 'member',
           default: null,
           prompt: {
-            retry: (msg: Message) => `${msg.author}, je moet een juiste gebruiker opgeven`,
+            retry: (msg: Message) => `${msg.author.toString()}, je moet een juiste gebruiker opgeven`,
             optional: true,
           },
         },
@@ -46,7 +46,7 @@ export default class PurgeCommand extends Command {
       limit: amount + 1,
     }).then((messages) => {
       if (member) messages = messages.filter((m) => m.author.id === member.user.id);
-      assert(message.channel.type === 'text');
+      assert(message.channel.type === 'GUILD_TEXT');
       message.channel.bulkDelete(messages).catch((error) => console.log(error.stack));
     });
   }

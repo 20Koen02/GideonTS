@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message, MessageAttachment } from 'discord.js';
-import { Canvas, resolveImage } from 'canvas-constructor';
+import { Canvas, resolveImage } from 'canvas-constructor/cairo';
 import path from 'path';
 
 export default class BallCommand extends Command {
@@ -38,6 +38,6 @@ export default class BallCommand extends Command {
       .toBuffer();
 
     const attachment = new MessageAttachment(buffer, `dice-${rng}.png`);
-    return message.util.send(attachment);
+    return message.util.send({ files: [attachment] });
   }
 }

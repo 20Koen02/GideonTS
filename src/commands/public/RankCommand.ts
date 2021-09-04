@@ -47,11 +47,13 @@ export default class RankCommand extends Command {
 
     const position = sortedUserScores.findIndex((x) => x.user === score.user) + 1;
 
-    return message.util.send(new MessageEmbed()
-      .setAuthor(`Rank | ${member.user.username}`, member.user.displayAvatarURL())
-      .setColor(primaryColor)
-      .addField('Rank', `${position}/${sortedUserScores.length}`, true)
-      .addField('Level', `${score.level}`, true)
-      .addField('XP', `${score.exp}/${(5 * (score.level ** 2) + 50 * score.level + 100)} (totaal ${score.total_exp})`, true));
+    return message.util.send({
+      embeds: [new MessageEmbed()
+        .setAuthor(`Rank | ${member.user.username}`, member.user.displayAvatarURL())
+        .setColor(primaryColor)
+        .addField('Rank', `${position}/${sortedUserScores.length}`, true)
+        .addField('Level', `${score.level}`, true)
+        .addField('XP', `${score.exp}/${(5 * (score.level ** 2) + 50 * score.level + 100)} (totaal ${score.total_exp})`, true)],
+    });
   }
 }

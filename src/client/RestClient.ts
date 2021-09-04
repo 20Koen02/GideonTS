@@ -53,7 +53,7 @@ export default class RestClient {
             avatar: discordUser.displayAvatarURL({ format: imageFormat as AllowedImageFormat }),
             discriminator: discordUser.discriminator,
             displayColor: discordGuildMember.displayHexColor,
-            status: discordUser.presence.status,
+            status: discordGuildMember.presence.status,
           } as ScoresResponse;
         }));
 

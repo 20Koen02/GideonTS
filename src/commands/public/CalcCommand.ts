@@ -36,7 +36,7 @@ export default class CalcCommand extends Command {
           id: 'expr',
           type: 'string',
           prompt: {
-            start: (msg: Message) => `${msg.author}, je moet een expressie opgeven`,
+            start: (msg: Message) => `${msg.author.toString()}, je moet een expressie opgeven`,
           },
           match: 'rest',
         },
@@ -52,12 +52,12 @@ export default class CalcCommand extends Command {
       const embed = new MessageEmbed()
         .setColor(primaryColor)
         .setDescription(`\`${expr} = ${limitedEvaluate(expr)}\``);
-      return await message.util.send(embed);
+      return await message.util.send({ embeds:[embed] });
     } catch (e) {
       const embed = new MessageEmbed()
         .setColor(primaryColor)
         .setDescription(`:x: ${e.message}`);
-      return message.util.send(embed);
+      return message.util.send({ embeds:[embed] });
     }
   }
 }

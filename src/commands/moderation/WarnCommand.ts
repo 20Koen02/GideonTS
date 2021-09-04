@@ -25,8 +25,8 @@ export default class WarnCommand extends Command {
           id: 'member',
           type: 'member',
           prompt: {
-            start: (msg: Message) => `${msg.author}, je moet een gebruiker opgeven`,
-            retry: (msg: Message) => `${msg.author}, je moet een juiste gebruiker opgeven`,
+            start: (msg: Message) => `${msg.author.toString()}, je moet een gebruiker opgeven`,
+            retry: (msg: Message) => `${msg.author.toString()}, je moet een juiste gebruiker opgeven`,
           },
         },
         {
@@ -43,7 +43,7 @@ export default class WarnCommand extends Command {
     { member, reason }: { member: GuildMember, reason: string }): Promise<Message> {
     const warnRepo: Repository<WarnsModel> = this.client.db.getRepository(WarnsModel);
     if (member.roles.highest.position >= message.member.roles.highest.position
-      && message.author.id !== message.guild.ownerID) {
+      && message.author.id !== message.guild.ownerId) {
       return message.util.reply('Deze gebruiker heeft hogere of gelijkwaardige rollen met jou');
     }
 
@@ -54,8 +54,10 @@ export default class WarnCommand extends Command {
       reason,
     });
 
-    return message.util.send(new MessageEmbed()
-      .setColor(primaryColor)
-      .setDescription(`**${member.user.tag}** is gewaarschuwd door **${message.author.tag}**\nReden: *${reason}*`));
+    return message.util.send({
+      embeds: [new MessageEmbed()
+        .setColor(primaryColor)
+        .setDescription(`**${member.user.tag}** is gewaarschuwd door **${message.author.tag}**\nReden: *${reason}*`)],
+    });
   }
 }

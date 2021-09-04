@@ -16,7 +16,7 @@ export default class ReadyListener extends Listener {
     const ownerUsername = await this.client.users.fetch(owners[0]);
     await this.client.user.setPresence({
       status: 'online',
-      activity: { name: ownerUsername.tag || 'Koen02#2933', type: 'WATCHING' },
+      activities: [{ name: ownerUsername.tag || 'Koen02#2933', type: 'WATCHING' }],
     });
   }
 }

@@ -26,9 +26,11 @@ export default class PingCommand extends Command {
     const req: AxiosResponse = await axios.get(`https://api.buienradar.nl/image/1.0/RadarMapNL?w=1024&h=1024&nonce=${nonce}`);
     const gifUrl = `${req.request.res.responseUrl}?nonce=${nonce}`;
 
-    return message.util.send(new MessageEmbed()
-      .setTitle('🌧️  Actuele Buienradar')
-      .setImage(gifUrl)
-      .setColor(primaryColor));
+    return message.util.send({
+      embeds: [new MessageEmbed()
+        .setTitle('🌧️  Actuele Buienradar')
+        .setImage(gifUrl)
+        .setColor(primaryColor)],
+    });
   }
 }

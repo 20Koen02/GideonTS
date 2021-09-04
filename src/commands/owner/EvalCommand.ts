@@ -32,7 +32,7 @@ export default class EvalCommand extends Command {
           type: 'string',
           match: 'rest',
           prompt: {
-            start: (msg: Message) => `${msg.author}, wat zou je willen evalueren?`,
+            start: (msg: Message) => `${msg.author.toString()}, wat zou je willen evalueren?`,
           },
         },
         {
@@ -68,7 +68,7 @@ export default class EvalCommand extends Command {
       this.lastResult = await eval(code);
       hrDiff = process.hrtime(hrStart);
     } catch (error) {
-      return message.util!.send(`Error while evaluating: \`${error}\``);
+      return message.util.send(`Error while evaluating: \`${error}\``);
     }
 
     this.hrStart = process.hrtime();
@@ -76,13 +76,13 @@ export default class EvalCommand extends Command {
     if (del) await message.delete();
     if (silent) return true;
 
-    if (bin) return message.util!.send(await this.hastebin(this.lastResult));
+    if (bin) return message.util.send(await this.hastebin(this.lastResult));
 
     const result = this.result(this.lastResult, hrDiff, code);
     if (Array.isArray(result)) {
-      return result.map(async (res): Promise<Message | Message[]> => message.util!.send(res));
+      return result.map(async (res): Promise<Message | Message[]> => message.util.send(res));
     }
-    return message.util!.send(result);
+    return message.util.send(result);
   }
 
   private async hastebin(evalResult: string): Promise<string> {
@@ -119,8 +119,8 @@ export default class EvalCommand extends Command {
 
   private get sensitivePattern(): any {
     if (!this._sensitivePattern) {
-      const token = this.client.token!.split('').join('[^]{0,2}');
-      const revToken = this.client.token!.split('').reverse().join('[^]{0,2}');
+      const token = this.client.token.split('').join('[^]{0,2}');
+      const revToken = this.client.token.split('').reverse().join('[^]{0,2}');
       Object.defineProperty(this, '_sensitivePattern', { value: new RegExp(`${token}|${revToken}`, 'g') });
     }
     return this._sensitivePattern;

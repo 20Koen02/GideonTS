@@ -26,8 +26,8 @@ export default class CardCommand extends Command {
           id: 'color',
           type: Argument.validate('string', (msg, p, str) => ['z', 'zwart', 'b', 'black', 'w', 'white', 'wit'].includes(str.toLowerCase())),
           prompt: {
-            start: (msg: Message) => `${msg.author}, wil je een zwarte of witte kaart? (z/w)`,
-            retry: (msg: Message) => `${msg.author}, wil je een zwarte of witte kaart? (z/w)`,
+            start: (msg: Message) => `${msg.author.toString()}, wil je een zwarte of witte kaart? (z/w)`,
+            retry: (msg: Message) => `${msg.author.toString()}, wil je een zwarte of witte kaart? (z/w)`,
           },
         },
       ],
@@ -76,7 +76,7 @@ export default class CardCommand extends Command {
       canvas.width - (textMargin * 2), 34);
 
     const attachment = new MessageAttachment(canvas.toBuffer(), `card-${randCard.id}.png`);
-    return message.util.send(attachment);
+    return message.util.send({ files: [attachment] });
   }
 
   roundRect(x0, y0, x1, y1, r, color, ctx) {

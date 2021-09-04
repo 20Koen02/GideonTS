@@ -38,7 +38,7 @@ export default class UrbanCommand extends Command {
           match: 'rest',
           type: 'string',
           prompt: {
-            start: (msg: Message) => `${msg.author}, wat zou je willen opzoeken?`,
+            start: (msg: Message) => `${msg.author.toString()}, wat zou je willen opzoeken?`,
           },
         },
       ],
@@ -58,18 +58,18 @@ export default class UrbanCommand extends Command {
             .setColor(primaryColor)
             .addField(`Definitie van: *${UrbanCommand.capitalize(def.word)}*`, `${UrbanCommand.capitalize(def.definition)}`)
             .addField('Voorbeeld', `*${UrbanCommand.capitalize(def.example)}*`);
-          return message.util.send(embed);
+          return message.util.send({ embeds: [embed] });
         }
         const embed = new MessageEmbed()
           .setColor(primaryColor)
           .addField(`Definitie van: *${UrbanCommand.capitalize(def.word)}*`, `${UrbanCommand.capitalize(def.definition)}`);
-        return message.util.send(embed);
+        return message.util.send({ embeds: [embed] });
       });
     } catch (err) {
       const embed = new MessageEmbed()
         .setColor(primaryColor)
         .setDescription(':x: Ik kan dat woord niet vinden!');
-      return message.util.send(embed);
+      return message.util.send({ embeds: [embed] });
     }
   }
 }

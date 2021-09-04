@@ -1,5 +1,5 @@
 import { AkairoClient, CommandHandler, ListenerHandler } from 'discord-akairo';
-import { Message } from 'discord.js';
+import { Intents, Message, Snowflake } from 'discord.js';
 import { join } from 'path';
 import { Connection } from 'typeorm';
 import {
@@ -7,12 +7,14 @@ import {
 } from '../Config';
 import Database from '../structures/Database';
 import migrate from '../migration/Migration';
+import MusicSubscription from '../lib/music/MusicSubscription';
 
 declare module 'discord-akairo' {
   interface AkairoClient {
     commandHandler: CommandHandler;
     listenerHandler: ListenerHandler;
     db: Connection;
+    subscriptions: Map<Snowflake, MusicSubscription>;
   }
 }
 
@@ -25,6 +27,8 @@ export default class BotClient extends AkairoClient {
   public config: BotOptions;
 
   public db!: Connection;
+
+  public subscriptions!: Map<Snowflake, MusicSubscription>;
 
   public listenerHandler: ListenerHandler = new ListenerHandler(this, {
     directory: join(__dirname, '..', 'listeners'),
@@ -57,6 +61,23 @@ export default class BotClient extends AkairoClient {
   public constructor(config: BotOptions) {
     super({
       ownerID: config.owners,
+      intents: [
+        'GUILDS',
+        'GUILD_MEMBERS',
+        'GUILD_BANS',
+        'GUILD_EMOJIS_AND_STICKERS',
+        'GUILD_INTEGRATIONS',
+        'GUILD_WEBHOOKS',
+        'GUILD_INVITES',
+        'GUILD_VOICE_STATES',
+        'GUILD_PRESENCES',
+        'GUILD_MESSAGES',
+        'GUILD_MESSAGE_REACTIONS',
+        'GUILD_MESSAGE_TYPING',
+        'DIRECT_MESSAGES',
+        'DIRECT_MESSAGE_REACTIONS',
+        'DIRECT_MESSAGE_TYPING',
+      ],
     });
 
     this.config = config;
@@ -77,6 +98,8 @@ export default class BotClient extends AkairoClient {
     await this.db.connect();
     await this.db.synchronize();
     if (!debug) await migrate(this.db);
+
+    this.subscriptions = new Map<Snowflake, MusicSubscription>();
   }
 
   public async start(): Promise<string> {

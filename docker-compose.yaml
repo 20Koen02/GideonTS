@@ -1,11 +1,13 @@
 version: '3.8'
 services:
-  db:
+  gideondb:
     image: postgres
     restart: unless-stopped
     ports:
       - "5432:5432"
     env_file: .env
+    volumes:
+      - gideonpostgres:/var/lib/postgresql/data
 
   gideonts:
     image: koen02/gideonts:latest
@@ -14,11 +16,16 @@ services:
     env_file: .env
     volumes:
       - .env:/app.env
+      - ./src:/app/src
+    command: npm run start:watch
     depends_on:
-      - db
+      - gideondb
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.gideonts-api.rule=Host(`gideon-api.koen02.nl`)"
       - "traefik.http.routers.gideonts-api.entrypoints=websecure"
       - "traefik.http.routers.gideonts-api.tls.certresolver=mytlschallenge"
       - "traefik.http.services.gideonts-api.loadbalancer.server.port=7777"
+
+volumes:
+  gideonpostgres:

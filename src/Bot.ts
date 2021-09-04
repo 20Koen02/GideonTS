@@ -11,6 +11,7 @@ import BotClient from './client/BotClient';
 import RestClient from './client/RestClient';
 import SocketClient from './client/SocketClient';
 import WebClient from './client/WebClient';
+import { generateDependencyReport } from '@discordjs/voice';
 
 // Create bot client
 export const botClient: BotClient = new BotClient({ token, owners });

@@ -26,8 +26,8 @@ export default class InfractionsCommand extends Command {
           id: 'member',
           type: 'member',
           prompt: {
-            start: (msg: Message) => `${msg.author}, je moet een gebruiker opgeven`,
-            retry: (msg: Message) => `${msg.author}, je moet een juiste gebruiker opgeven`,
+            start: (msg: Message) => `${msg.author.toString()}, je moet een gebruiker opgeven`,
+            retry: (msg: Message) => `${msg.author.toString()}, je moet een juiste gebruiker opgeven`,
           },
         },
       ],
@@ -41,7 +41,7 @@ export default class InfractionsCommand extends Command {
     if (!warns.length) return message.util.reply('ik heb geen overtredingen gevonden');
 
     // eslint-disable-next-line consistent-return
-    const infractions = await Promise.all(warns.map(async (v:WarnsModel, i:number) => {
+    const infractions = await Promise.all(warns.map(async (v: WarnsModel, i: number) => {
       const mod: User = await this.client.users.fetch(v.moderator).catch(() => null);
       if (mod) {
         return {
@@ -52,9 +52,11 @@ export default class InfractionsCommand extends Command {
       }
     }));
 
-    return message.util.send(new MessageEmbed()
-      .setAuthor(`Overtredingen | ${member.user.username}`, member.user.displayAvatarURL())
-      .setColor(primaryColor)
-      .setDescription(infractions.map((v) => `\`${v.index}\` | Moderator: *${v.moderator}*\nReden: *${v.reason}*\n`)));
+    return message.util.send({
+      embeds: [new MessageEmbed()
+        .setAuthor(`Overtredingen | ${member.user.username}`, member.user.displayAvatarURL())
+        .setColor(primaryColor)
+        .setDescription(infractions.map((v) => `\`${v.index}\` | Moderator: *${v.moderator}*\nReden: *${v.reason}*\n`).join('\n'))],
+    });
   }
 }

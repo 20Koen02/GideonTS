@@ -22,10 +22,11 @@ export default class UnlockCommand extends Command {
   }
 
   public async exec(message: Message): Promise<Message> {
-    assert(message.channel.type === 'text');
+    assert(message.channel.type === 'GUILD_TEXT');
     const msg = await message.util.send(`Weet je zeker dat je ${message.channel.name} wilt ontgrendelen? J/N`);
+    const filter = r => r.author!.id === message.author!.id;
     const responses = await msg.channel.awaitMessages(
-      (r: Message) => r.author!.id === message.author!.id, { max: 1, time: 30000 },
+      { filter, max: 1, time: 30000 },
     );
     if (!responses || responses.size < 1) return message.util!.send('Verzoek verlopen');
     const response = responses.first();
@@ -40,22 +41,24 @@ export default class UnlockCommand extends Command {
     response.delete();
 
     lockdownRoles.forEach((roleId) => {
-      assert(message.channel.type === 'text');
-      message.channel.updateOverwrite(roleId, {
+      assert(message.channel.type === 'GUILD_TEXT');
+      message.channel.permissionOverwrites.edit(roleId, {
         SEND_MESSAGES: null,
       });
     });
 
     lockdownWhitelistRoles.forEach((roleId) => {
-      assert(message.channel.type === 'text');
-      message.channel.updateOverwrite(roleId, {
+      assert(message.channel.type === 'GUILD_TEXT');
+      message.channel.permissionOverwrites.edit(roleId, {
         SEND_MESSAGES: null,
       });
     });
 
-    return message.util!.send(new MessageEmbed()
-      .setAuthor(`${message.author.username} heeft dit kanaal ontgrendeld 🔓`, message.author.displayAvatarURL())
-      .setDescription('Dit kanaal is ontgrendeld, je kunt nu weer praten.')
-      .setColor(primaryColor));
+    return message.util!.send({
+      embeds: [new MessageEmbed()
+        .setAuthor(`${message.author.username} heeft dit kanaal ontgrendeld 🔓`, message.author.displayAvatarURL())
+        .setDescription('Dit kanaal is ontgrendeld, je kunt nu weer praten.')
+        .setColor(primaryColor)],
+    });
   }
 }

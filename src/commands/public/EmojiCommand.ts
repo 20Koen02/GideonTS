@@ -22,8 +22,8 @@ export default class EmojiCommand extends Command {
           type: Argument.validate('string', (msg, p, str) => str.length <= 50),
           match: 'rest',
           prompt: {
-            start: (msg: Message) => `${msg.author}, je moet tekst opgeven`,
-            retry: (msg: Message) => `${msg.author}, je moet tekst opgeven (niet meer dan 50 tekens)`,
+            start: (msg: Message) => `${msg.author.toString()}, je moet tekst opgeven`,
+            retry: (msg: Message) => `${msg.author.toString()}, je moet tekst opgeven (niet meer dan 50 tekens)`,
           },
         },
       ],
@@ -34,9 +34,11 @@ export default class EmojiCommand extends Command {
     const input = text.replace(/[A-Za-z]/g, (letter) => `:regional_indicator_${letter.toLowerCase()}:`);
     const emojis = input.split(' ').join(':black_small_square:');
     const emojisfinal = emojis.split('::').join(': :');
-    return message.util.send(new MessageEmbed()
-      .setColor(primaryColor)
-      .setFooter(`Aangevraagd door: ${message.author.username}`, message.author.displayAvatarURL())
-      .setDescription(emojisfinal));
+    return message.util.send({
+      embeds: [new MessageEmbed()
+        .setColor(primaryColor)
+        .setFooter(`Aangevraagd door: ${message.author.username}`, message.author.displayAvatarURL())
+        .setDescription(emojisfinal)],
+    });
   }
 }

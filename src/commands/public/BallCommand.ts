@@ -53,8 +53,10 @@ export default class BallCommand extends Command {
   }
 
   public exec(message: Message): Promise<Message> {
-    return message.util.send(new MessageEmbed()
-      .setColor(primaryColor)
-      .setDescription(BallCommand.do8ball()));
+    return message.util.send({
+      embeds: [new MessageEmbed()
+        .setColor(primaryColor)
+        .setDescription(BallCommand.do8ball())],
+    });
   }
 }
