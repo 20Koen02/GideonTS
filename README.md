@@ -10,7 +10,7 @@ Gideon 1.0 Reimagined - Now in Typescript
 
 ## Features
 
-<img src="https://github.com/20Koen02/GideonTS/blob/main/src/assets/gideon.png" align="right" alt="Gideon Logo">
+<img src="https://github.com/20Koen02/GideonTS/blob/main/src/assets/gideon-square.png" align="right" width="400" alt="Gideon Logo">
 
 - Free and open-source
 - XP system to encourage chatting
