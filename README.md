@@ -2,15 +2,19 @@
 
 Gideon 1.0 Reimagined - Now in Typescript
 
+[![GitHub Issues](https://img.shields.io/github/issues/20Koen02/GideonTS)](https://github.com/20Koen02/GideonTS/issues?q=is%3Aopen+is%3Aissue)
+[![GitHub Licence](https://img.shields.io/github/license/20Koen02/GideonTS)](https://github.com/20Koen02/GideonTS/blob/main/LICENSE)
+[![Netlify](https://img.shields.io/netlify/e36a36a6-c5bc-47ac-9016-9bd6d9118612)](https://app.netlify.com/sites/gideonts-web/deploys)
+[![Discord](https://img.shields.io/discord/351735832727781376)](https://discord.gg/9ff7HwU)
+[![Website](https://img.shields.io/badge/Gideon-Dashboard-blue)](https://gideon.koen02.nl/)
 
-## Todo:
-Moderation:
-- Mute
+## Features
 
-Public:
-- Kop of Munt
-- Rad van Fortuin
+<img src="https://github.com/20Koen02/GideonTS/blob/main/src/assets/gideon.png" align="right" alt="Gideon Logo">
 
-Other: 
-- Music
-- Webapp
+- Free and open-source
+- XP system to encourage chatting
+- Dashboard to view the leaderboard
+- Powerful moderation system
+- Robust music system
+- Fun commands to spice up your server
