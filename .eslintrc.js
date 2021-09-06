@@ -39,6 +39,7 @@ module.exports = {
     "unicorn/no-array-for-each": "off",
     // It's not accurate in the monorepo style
     "import/no-extraneous-dependencies": "off",
+    "@typescript-eslint/no-floating-promises": "off"
   },
   overrides: [
     {

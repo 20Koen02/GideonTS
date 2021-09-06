@@ -1,6 +1,7 @@
 import { Message } from 'discord.js';
 import { Repository } from 'typeorm';
 import ScoresModel from '../models/ScoresModel';
+import { debug } from '../Config';
 
 const { Listener } = require('discord-akairo');
 
@@ -14,6 +15,7 @@ class ScoreListener extends Listener {
 
   public async exec(message: Message) {
     if (message.author.bot) return;
+    if (debug) return;
 
     const scoresRepo: Repository<ScoresModel> = this.client.db.getRepository(ScoresModel);
     let score: ScoresModel = await scoresRepo.findOne(({
