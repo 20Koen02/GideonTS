@@ -2,16 +2,14 @@ import 'dotenv/config';
 import cors from 'cors';
 import * as bodyParser from 'body-parser';
 import helmet from 'helmet';
-import compression from 'compression';
 import {
   token, owners, clientPort, corsOptions,
 } from './Config';
 import BotClient from './client/BotClient';
-// eslint-disable-next-line import/no-cycle
 import RestClient from './client/RestClient';
 import SocketClient from './client/SocketClient';
 import WebClient from './client/WebClient';
-import { generateDependencyReport } from '@discordjs/voice';
+import compression from 'compression';
 
 // Create bot client
 export const botClient: BotClient = new BotClient({ token, owners });
@@ -38,9 +36,9 @@ const socketClient: SocketClient = new SocketClient(
 );
 
 // First start the bot
-botClient.start().then(() => {
+void botClient.start().then(() => {
   // Then start the web server
   webClient.listen(clientPort);
 });
 
-export default { botClient };
+export default { botClient, restClient, socketClient };
