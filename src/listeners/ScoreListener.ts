@@ -2,8 +2,7 @@ import { Message } from 'discord.js';
 import { Repository } from 'typeorm';
 import ScoresModel from '../models/ScoresModel';
 import { debug } from '../Config';
-
-const { Listener } = require('discord-akairo');
+import { Listener } from 'discord-akairo';
 
 class ScoreListener extends Listener {
   constructor() {

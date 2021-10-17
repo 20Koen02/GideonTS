@@ -6,20 +6,14 @@ import {
   token, owners, clientPort, corsOptions,
 } from './Config';
 import BotClient from './client/BotClient';
-import RestClient from './client/RestClient';
-import SocketClient from './client/SocketClient';
-import WebClient from './client/WebClient';
 import compression from 'compression';
+import { RestClient } from './client/RestClient';
 
 // Create bot client
-export const botClient: BotClient = new BotClient({ token, owners });
-
-// Create web client; this contains the web server for the rest client & socketio client
-const webClient: WebClient = new WebClient();
+const botClient: BotClient = new BotClient({ token, owners });
 
 // Create rest client; using expressjs server
 const restClient: RestClient = new RestClient(
-  webClient.app,
   [
     bodyParser.json(),
     bodyParser.urlencoded({ extended: true }),
@@ -29,16 +23,10 @@ const restClient: RestClient = new RestClient(
   ],
 );
 
-// Create socket client; using http server
-const socketClient: SocketClient = new SocketClient(
-  webClient.server,
-  corsOptions,
-);
-
 // First start the bot
 void botClient.start().then(() => {
   // Then start the web server
-  webClient.listen(clientPort);
+  restClient.listen(clientPort);
 });
 
-export default { botClient, restClient, socketClient };
+export { botClient, restClient };

@@ -1,4 +1,5 @@
 import { ColorResolvable } from 'discord.js';
+import { CorsOptions } from 'cors';
 
 export const debug = Boolean(+process.env.DEBUG);
 export const token: string = process.env.TOKEN;
@@ -20,7 +21,7 @@ export const dbPassword: string = process.env.POSTGRES_PASSWORD;
 export const dbHost: string = process.env.POSTGRES_HOST;
 export const dbPort: number = +process.env.POSTGRES_PORT;
 export const clientPort = 7777;
-export const corsOptions = {
+export const corsOptions: CorsOptions = {
   origin: ['http://127.0.0.1:3333', 'https://gideon.koen02.nl'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 };

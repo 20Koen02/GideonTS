@@ -1,8 +1,7 @@
-import { Application } from 'express';
+import express, { Application } from 'express';
 import { Repository } from 'typeorm';
-import { AllowedImageFormat } from 'discord.js';
+import { AllowedImageFormat, PresenceStatus } from 'discord.js';
 import ScoresModel from '../models/ScoresModel';
-// eslint-disable-next-line import/no-cycle
 import { botClient } from '../Bot';
 
 interface ScoresResponse extends ScoresModel {
@@ -10,23 +9,24 @@ interface ScoresResponse extends ScoresModel {
   discriminator?: string;
   avatar?: string;
   displayColor?: string;
-  status?: 'online' | 'idle' | 'dnd';
+  status?: PresenceStatus;
 }
 
 const supportedAvatarFormats = [
   'png', 'jpeg', 'jpg', 'webp', 'gif',
 ];
 
-export default class RestClient {
+export class RestClient {
   public app: Application;
 
-  constructor(app: Application, middleWares: any) {
-    this.app = app;
+  constructor(middleWares: never) {
+    this.app = express();
     this.registerMiddlewares(middleWares);
     this.registerRoute();
   }
 
-  public registerRoute() {
+  public registerRoute(): void {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     this.app.get('/v1/:guild', async (req, res) => {
       const imageFormatQuery = req.query.format;
       let imageFormat = 'webp';
@@ -53,7 +53,7 @@ export default class RestClient {
             avatar: discordUser.displayAvatarURL({ format: imageFormat as AllowedImageFormat }),
             discriminator: discordUser.discriminator,
             displayColor: discordGuildMember.displayHexColor,
-            status: discordGuildMember.presence.status,
+            status: discordGuildMember.presence?.status,
           } as ScoresResponse;
         }));
 
@@ -67,16 +67,22 @@ export default class RestClient {
 
         res.send(JSON.stringify(responseObject));
       } catch (error) {
-        return res.status(404).send('Guild not found');
+        res.status(404).send('Guild not found');
       }
     });
   }
 
   private registerMiddlewares(middleWares: {
-    forEach: (arg0: (middleWare: any) => void) => void;
+    forEach: (arg0: (middleWare: never) => void) => void;
   }) {
     middleWares.forEach((middleWare) => {
       this.app.use(middleWare);
+    });
+  }
+
+  public listen(port: number): void {
+    this.app.listen(port, () => {
+      console.log(`REST API listening on port ${port}`);
     });
   }
 }
