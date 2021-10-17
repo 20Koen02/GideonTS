@@ -19,7 +19,10 @@ const supportedAvatarFormats = [
 export class RestClient {
   public app: Application;
 
-  constructor(middleWares: never) {
+  constructor(middleWares: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    forEach: (arg0: (middleWare: any) => void) => void;
+  }) {
     this.app = express();
     this.registerMiddlewares(middleWares);
     this.registerRoute();
@@ -73,7 +76,8 @@ export class RestClient {
   }
 
   private registerMiddlewares(middleWares: {
-    forEach: (arg0: (middleWare: never) => void) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    forEach: (arg0: (middleWare: any) => void) => void;
   }) {
     middleWares.forEach((middleWare) => {
       this.app.use(middleWare);
