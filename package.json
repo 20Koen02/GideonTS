@@ -31,7 +31,7 @@
     "helmet": "^4.6.0",
     "libsodium-wrappers": "^0.7.9",
     "mathjs": "^9.4.4",
-    "minecraft-server-util": "^3.6.0",
+    "minecraft-server-util": "^5.3.1",
     "pg": "^8.7.1",
     "socket.io": "^4.2.0",
     "strftime": "^0.10.0",

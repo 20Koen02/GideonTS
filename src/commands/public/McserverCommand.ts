@@ -1,7 +1,7 @@
 import { Command } from 'discord-akairo';
 import { EmbedFieldData, Message, MessageAttachment, MessageEmbed, Util } from 'discord.js';
 import { debug, gideonDevId, gideonId, primaryColor } from '../../Config';
-import * as util from 'minecraft-server-util';
+import { status } from 'minecraft-server-util';
 
 export default class McserverCommand extends Command {
   public constructor() {
@@ -40,7 +40,11 @@ export default class McserverCommand extends Command {
     }
 
     try {
-      const response = await util.status(ip, { port: port });
+      const options = {
+        timeout: 1000 * 5,
+        enableSRV: true
+      };
+      const response = await status(ip, port, options);
 
       const base64Image = response.favicon.split(';base64,').pop();
       const faviconBuffer = Buffer.from(base64Image, 'base64');
